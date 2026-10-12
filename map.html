@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时空地图 - 层叠之境</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">层叠之境</span>
+            <span class="subtitle">中国史前聚落考古数字博物馆</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="calculator.html">人口估算</a></li>
+            <li><a href="map.html" class="active">时空地图</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <main class="map-page">
+        <div class="map-header">
+            <h1>史前聚落时空地图</h1>
+            <p>拖动时间轴，观察新石器时代聚落在中国大地上的分布与演变</p>
+        </div>
+
+        <div class="map-container">
+            <div class="timeline-control">
+                <label>年代：<span id="yearLabel">公元前5000年</span></label>
+                <input type="range" id="timeline" min="0" max="4" value="0" step="1" onchange="updateMap()">
+                <div class="timeline-labels">
+                    <span>前7000年</span>
+                    <span>前6000年</span>
+                    <span>前5000年</span>
+                    <span>前4000年</span>
+                    <span>前3000年</span>
+                </div>
+            </div>
+
+            <div id="map" class="map-view"></div>
+
+            <div class="map-legend">
+                <h4>图例</h4>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#E57373"></span>
+                    <span>仰韶文化</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#81C784"></span>
+                    <span>龙山文化</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#64B5F6"></span>
+                    <span>良渚文化</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#FFB74D"></span>
+                    <span>大汶口文化</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#BA68C8"></span>
+                    <span>河姆渡文化</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-info" id="siteInfo">
+            <h3>点击地图上的遗址点查看详情</h3>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>层叠之境 - 中国史前聚落考古数字博物馆 | 课程作业演示版</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人口估算模型 - 层叠之境</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">层叠之境</span>
+            <span class="subtitle">中国史前聚落考古数字博物馆</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="calculator.html" class="active">人口估算</a></li>
+            <li><a href="map.html">时空地图</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <main class="calculator-page">
+        <div class="calc-header">
+            <h1>史前聚落人口估算模型</h1>
+            <p>输入聚落的基本参数，用考古学方法推算居住人口规模</p>
+        </div>
+
+        <div class="calc-container">
+            <div class="input-panel">
+                <h3>输入参数</h3>
+
+                <div class="input-group">
+                    <label>聚落总面积（平方米）</label>
+                    <input type="number" id="area" value="19000" placeholder="例如：19000">
+                    <span class="hint">姜寨遗址约19000平方米</span>
+                </div>
+
+                <div class="input-group">
+                    <label>房屋数量（座）</label>
+                    <input type="number" id="houses" value="100" placeholder="例如：100">
+                    <span class="hint">姜寨遗址发现房屋100余座</span>
+                </div>
+
+                <div class="input-group">
+                    <label>单座房屋平均面积（平方米）</label>
+                    <input type="number" id="houseArea" value="20" placeholder="例如：20">
+                    <span class="hint">半地穴式房屋通常15-30平方米</span>
+                </div>
+
+                <div class="input-group">
+                    <label>人均居住面积（平方米/人）</label>
+                    <input type="number" id="perPerson" value="6" placeholder="例如：6">
+                    <span class="hint">考古学常用6-10平方米/人</span>
+                </div>
+
+                <button class="btn-calculate" onclick="calculate()">开始计算</button>
+                <button class="btn-reset" onclick="resetData()">重置数据</button>
+            </div>
+
+            <div class="result-panel">
+                <h3>计算结果</h3>
+
+                <div class="result-cards">
+                    <div class="result-card main">
+                        <div class="result-label">估算人口</div>
+                        <div class="result-value" id="resultPop">-</div>
+                        <div class="result-unit">人</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">房屋容纳</div>
+                        <div class="result-value" id="resultHouse">-</div>
+                        <div class="result-unit">人</div>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="result-label">面积容纳</div>
+                        <div class="result-value" id="resultArea">-</div>
+                        <div class="result-unit">人</div>
+                    </div>
+                </div>
+
+                <div class="method-comparison">
+                    <h4>不同学者方法对比</h4>
+                    <table class="compare-table">
+                        <tr>
+                            <th>方法</th>
+                            <th>公式</th>
+                            <th>结果</th>
+                        </tr>
+                        <tr>
+                            <td>Naroll法</td>
+                            <td>人口 = 房屋面积 x 0.1</td>
+                            <td id="naroll">-</td>
+                        </tr>
+                        <tr>
+                            <td>Kramer法</td>
+                            <td>人口 = 房屋数 x 6</td>
+                            <td id="kramer">-</td>
+                        </tr>
+                        <tr>
+                            <td>面积密度法</td>
+                            <td>人口 = 总面积 / 人均面积</td>
+                            <td id="density">-</td>
+                        </tr>
+                        <tr>
+                            <td>综合估算</td>
+                            <td>多方法加权平均</td>
+                            <td id="combined" class="highlight">-</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="reference-info">
+                    <h4>参考案例</h4>
+                    <div class="case-item">
+                        <strong>姜寨遗址</strong>（仰韶文化）
+                        <br>面积19000m2 | 房屋100+座 | 估算人口<strong>400-600人</strong>
+                    </div>
+                    <div class="case-item">
+                        <strong>半坡遗址</strong>（仰韶文化）
+                        <br>面积50000m2 | 房屋200+座 | 估算人口<strong>500-800人</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>层叠之境 - 中国史前聚落考古数字博物馆 | 课程作业演示版</p>
+    </footer>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
