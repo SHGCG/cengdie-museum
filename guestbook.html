@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板 - 层叠之境</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">层叠之境</span>
+            <span class="subtitle">中国史前聚落考古数字博物馆</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="calculator.html">人口估算</a></li>
+            <li><a href="map.html">时空地图</a></li>
+            <li><a href="dig.html">虚拟发掘</a></li>
+            <li><a href="quiz.html">知识测验</a></li>
+            <li><a href="guestbook.html" class="active">留言板</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <main class="guestbook-page">
+        <div class="guestbook-header">
+            <h1>&#x1F4AC; 访客留言板</h1>
+            <p>留下你的想法、建议或考古学习心得</p>
+        </div>
+
+        <div class="guestbook-container">
+            <div class="guestbook-form">
+                <h3>&#x270D; 写留言</h3>
+                <div class="form-group">
+                    <label>选择头像</label>
+                    <div class="avatar-select" id="avatarSelect">
+                        <span class="avatar-option selected" data-avatar="&#x1F9D1;">&#x1F9D1;</span>
+                        <span class="avatar-option" data-avatar="&#x1F9D2;">&#x1F9D2;</span>
+                        <span class="avatar-option" data-avatar="&#x1F9D3;">&#x1F9D3;</span>
+                        <span class="avatar-option" data-avatar="&#x1F469;">&#x1F469;</span>
+                        <span class="avatar-option" data-avatar="&#x1F468;">&#x1F468;</span>
+                        <span class="avatar-option" data-avatar="&#x1F9D1;&#x200D;&#x1F3EB;">&#x1F9D1;&#x200D;&#x1F3EB;</span>
+                        <span class="avatar-option" data-avatar="&#x1F9D1;&#x200D;&#x1F4BB;">&#x1F9D1;&#x200D;&#x1F4BB;</span>
+                        <span class="avatar-option" data-avatar="&#x1F9D1;&#x200D;&#x1F3A8;">&#x1F9D1;&#x200D;&#x1F3A8;</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>昵称</label>
+                    <input type="text" id="gbName" placeholder="请输入昵称" maxlength="15">
+                </div>
+                <div class="form-group">
+                    <label>留言内容</label>
+                    <textarea id="gbContent" placeholder="分享你的想法、建议或考古学习心得..." rows="4" maxlength="300"></textarea>
+                    <span class="char-count"><span id="charCount">0</span>/300</span>
+                </div>
+                <button class="btn-primary" onclick="submitMessage()">发表留言</button>
+            </div>
+
+            <div class="guestbook-list">
+                <h3>&#x1F4E3; 留言墙 <span class="msg-count" id="msgCount">(0条)</span></h3>
+                <div id="messageList">
+                    <div class="empty-msg">还没有留言，来做第一个访客吧！</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>层叠之境 - 中国史前聚落考古数字博物馆 | 课程作业演示版</p>
+        <p>闽江大学 2023级文物与博物馆学专业</p>
+        <p style="font-size:12px;opacity:0.5;margin-top:8px;">内容参考：中国大百科全书、国家文物局公开资料、考古发掘报告</p>
+    </footer>
+
+    <script src="guestbook.js"></script>
+</body>
+</html>

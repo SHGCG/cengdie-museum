@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考古知识测验 - 层叠之境</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">层叠之境</span>
+            <span class="subtitle">中国史前聚落考古数字博物馆</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="calculator.html">人口估算</a></li>
+            <li><a href="map.html">时空地图</a></li>
+            <li><a href="dig.html">虚拟发掘</a></li>
+            <li><a href="quiz.html" class="active">知识测验</a></li>
+            <li><a href="guestbook.html">留言板</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+
+    <main class="quiz-page">
+        <div class="quiz-header">
+            <h1>&#x1F4DD; 考古知识测验</h1>
+            <p>检验你对中国史前聚落考古的了解程度</p>
+        </div>
+
+        <!-- 难度选择 -->
+        <div class="difficulty-select" id="difficultySelect">
+            <h3>选择难度</h3>
+            <div class="difficulty-cards">
+                <div class="difficulty-card" onclick="startQuiz('easy')">
+                    <div class="diff-icon">&#x1F31F;</div>
+                    <h4>初级</h4>
+                    <p>适合对考古感兴趣的初学者</p>
+                    <span class="diff-tag">10道题</span>
+                </div>
+                <div class="difficulty-card" onclick="startQuiz('medium')">
+                    <div class="diff-icon">&#x1F31F;&#x1F31F;</div>
+                    <h4>中级</h4>
+                    <p>适合有一定基础的历史爱好者</p>
+                    <span class="diff-tag">10道题</span>
+                </div>
+                <div class="difficulty-card" onclick="startQuiz('hard')">
+                    <div class="diff-icon">&#x1F31F;&#x1F31F;&#x1F31F;</div>
+                    <h4>高级</h4>
+                    <p>适合考古专业学生</p>
+                    <span class="diff-tag">10道题</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 答题区 -->
+        <div class="quiz-area" id="quizArea" style="display:none;">
+            <div class="quiz-progress">
+                <span id="currentQ">1</span> / <span id="totalQ">10</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="quizProgress"></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="questionCard">
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="options"></div>
+            </div>
+
+            <div class="quiz-nav">
+                <button class="btn-prev" id="btnPrev" onclick="prevQuestion()" style="display:none;">上一题</button>
+                <button class="btn-next" id="btnNext" onclick="nextQuestion()" style="display:none;">下一题</button>
+                <button class="btn-submit" id="btnSubmit" onclick="submitQuiz()" style="display:none;">提交答卷</button>
+            </div>
+        </div>
+
+        <!-- 结果区 -->
+        <div class="result-area" id="resultArea" style="display:none;">
+            <div class="result-score">
+                <div class="score-circle">
+                    <span class="score-num" id="scoreNum">0</span>
+                    <span class="score-total">/ 10</span>
+                </div>
+                <div class="score-text" id="scoreText"></div>
+            </div>
+
+            <div class="result-detail" id="resultDetail"></div>
+
+            <div class="result-actions">
+                <button class="btn-primary" onclick="saveScore()">保存成绩到排行榜</button>
+                <button class="btn-reset" onclick="restartQuiz()">重新测验</button>
+            </div>
+        </div>
+
+        <!-- 排行榜 -->
+        <div class="leaderboard-section">
+            <h3>&#x1F3C6; 积分排行榜</h3>
+            <div class="leaderboard-tabs">
+                <span class="tab active" onclick="showLeaderboard('easy')">初级榜</span>
+                <span class="tab" onclick="showLeaderboard('medium')">中级榜</span>
+                <span class="tab" onclick="showLeaderboard('hard')">高级榜</span>
+            </div>
+            <table class="leaderboard-table" id="leaderboardTable">
+                <tr>
+                    <th>排名</th>
+                    <th>昵称</th>
+                    <th>得分</th>
+                    <th>用时</th>
+                    <th>时间</th>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>层叠之境 - 中国史前聚落考古数字博物馆 | 课程作业演示版</p>
+        <p>闽江大学 2023级文物与博物馆学专业</p>
+        <p style="font-size:12px;opacity:0.5;margin-top:8px;">内容参考：中国大百科全书、国家文物局公开资料、考古发掘报告</p>
+    </footer>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
