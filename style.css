@@ -1029,6 +1029,60 @@ body {
     border: 1px solid #e8e0d5;
 }
 
+/* 醒目的发掘结果横幅 */
+.dig-result-banner {
+    background: linear-gradient(135deg, #f0ebe3, #e8dfd0);
+    border: 2px solid #d4a574;
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(139,105,20,0.15);
+}
+
+.result-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+}
+
+.result-text {
+    font-size: 18px;
+    color: #3d2817;
+    line-height: 1.6;
+    flex: 1;
+}
+
+@keyframes highlightPulse {
+    0% { transform: scale(1); box-shadow: 0 4px 12px rgba(139,105,20,0.15); }
+    50% { transform: scale(1.02); box-shadow: 0 6px 20px rgba(139,105,20,0.3); }
+    100% { transform: scale(1); box-shadow: 0 4px 12px rgba(139,105,20,0.15); }
+}
+
+.dig-progress {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 12px;
+    background: #e0d5c8;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8b6914, #a67c2e);
+    border-radius: 6px;
+    transition: width 0.5s;
+    width: 0%;
+}
+
 .dig-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -1038,7 +1092,6 @@ body {
 
 .dig-cell {
     aspect-ratio: 1;
-    background: linear-gradient(180deg, #c9b896 0%, #b8a078 30%, #a08860 60%, #8b7355 100%);
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -1046,7 +1099,7 @@ body {
     justify-content: center;
     font-size: 24px;
     transition: all 0.4s;
-    border: 2px solid #a08860;
+    border: 2px solid;
     position: relative;
     overflow: hidden;
 }
@@ -1057,19 +1110,20 @@ body {
 }
 
 .dig-cell.dug {
-    background: #f0ebe3;
-    border-color: #c9b896;
+    background: #f0ebe3 !important;
+    border-color: #c9b896 !important;
 }
 
 .dig-cell .layer-indicator {
     position: absolute;
-    bottom: 4px;
-    right: 4px;
-    font-size: 10px;
-    color: rgba(255,255,255,0.7);
-    background: rgba(0,0,0,0.3);
+    top: 4px;
+    left: 4px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.9);
+    background: rgba(0,0,0,0.35);
     padding: 2px 6px;
     border-radius: 4px;
+    font-weight: 600;
 }
 
 .dig-info {
@@ -1091,31 +1145,6 @@ body {
     color: #5c4a3a;
     line-height: 1.9;
     margin-bottom: 8px;
-}
-
-.dig-progress {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #e0d5c8;
-}
-
-.progress-bar {
-    flex: 1;
-    height: 12px;
-    background: #e0d5c8;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #8b6914, #a67c2e);
-    border-radius: 6px;
-    transition: width 0.5s;
-    width: 0%;
 }
 
 /* ===== 响应式 ===== */
@@ -1889,4 +1918,113 @@ body {
         flex-direction: column;
         text-align: center;
     }
+}
+
+
+/* ===== 动态聚落示意图 ===== */
+.settlement-visual {
+    background: linear-gradient(180deg, #e8dfd0 0%, #d4c4a8 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 2px solid #c9b896;
+    box-shadow: inset 0 0 20px rgba(139,105,20,0.1);
+}
+
+.visual-title {
+    text-align: center;
+    font-size: 14px;
+    color: #5c4a3a;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.visual-scene {
+    position: relative;
+    height: 160px;
+    background: linear-gradient(180deg, #c9e6f0 0%, #d4c4a8 60%, #8b7355 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.visual-ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, #b8a078 0%, #8b7355 100%);
+}
+
+.visual-houses {
+    position: absolute;
+    bottom: 35%;
+    left: 0;
+    right: 0;
+    height: 60%;
+    z-index: 2;
+}
+
+.v-house {
+    position: absolute;
+    width: 16px;
+    height: 12px;
+    background: #8b6914;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.v-house::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -2px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 7px solid #6b4e23;
+}
+
+.visual-people {
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+    height: 35%;
+    z-index: 3;
+}
+
+.v-person {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #3d2817;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.v-person::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 2px;
+    width: 4px;
+    height: 5px;
+    background: #3d2817;
+    border-radius: 1px;
+}
+
+.visual-info {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 14px;
+    color: #5c4a3a;
+}
+
+.visual-info strong {
+    color: #8b6914;
+    font-size: 18px;
 }

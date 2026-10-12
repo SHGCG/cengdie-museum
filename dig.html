@@ -28,6 +28,20 @@
         </div>
 
         <div class="dig-container">
+            <!-- 发掘结果提示（移到最上面，醒目显示） -->
+            <div class="dig-result-banner" id="digResultBanner">
+                <div class="result-icon">&#x26CF;</div>
+                <div class="result-text" id="digResult">点击下方方格开始发掘...</div>
+            </div>
+
+            <div class="dig-progress">
+                <span>发掘进度</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span id="progressText">0%</span>
+            </div>
+
             <div class="dig-grid" id="digGrid"></div>
 
             <div class="dig-info">
@@ -35,15 +49,6 @@
                 <p><strong>当前探方：</strong>T1（5x5米标准探方）</p>
                 <p><strong>地层情况：</strong>共4个文化层，从上到下依次为耕土层、汉代层、商周层、新石器时代层</p>
                 <p><strong>操作提示：</strong>点击方格进行发掘，不同土层颜色不同。注意观察土色变化和出土遗物。</p>
-                <p id="digResult" style="color:#8b6914; font-weight:600; margin-top:12px;">点击上方方格开始发掘...</p>
-
-                <div class="dig-progress">
-                    <span>发掘进度</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <span id="progressText">0%</span>
-                </div>
             </div>
         </div>
     </main>

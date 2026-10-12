@@ -25,7 +25,6 @@ function calculate() {
     const densityResult = Math.round(area / perPerson);
 
     // 方法4: 综合估算 - 多方法加权平均
-    // 权重: Naroll 30%, Kramer 30%, 面积密度 40%
     const combinedResult = Math.round(narollResult * 0.3 + kramerResult * 0.3 + densityResult * 0.4);
 
     // 房屋容纳人数（按人均居住面积）
@@ -44,8 +43,52 @@ function calculate() {
     document.getElementById('density').textContent = densityResult + ' 人';
     document.getElementById('combined').textContent = combinedResult + ' 人';
 
+    // 更新动态示意图
+    updateVisual(houses, combinedResult);
+
     // 添加动画效果
     animateResult();
+}
+
+function updateVisual(houses, population) {
+    const housesDiv = document.getElementById('visualHouses');
+    const peopleDiv = document.getElementById('visualPeople');
+    const vHouses = document.getElementById('vHouses');
+    const vPop = document.getElementById('vPop');
+
+    // 限制显示数量（太多会挤不下）
+    const displayHouses = Math.min(houses, 20);
+    const displayPeople = Math.min(population, 50);
+
+    // 生成房屋
+    let houseHTML = '';
+    for (let i = 0; i < displayHouses; i++) {
+        const left = (i % 7) * 14 + 5;
+        const bottom = Math.floor(i / 7) * 25 + 10;
+        houseHTML += '<div class="v-house" style="left:' + left + '%;bottom:' + bottom + '%;"></div>';
+    }
+    housesDiv.innerHTML = houseHTML;
+
+    // 生成小人
+    let peopleHTML = '';
+    for (let i = 0; i < displayPeople; i++) {
+        const left = (i % 10) * 10 + 2;
+        const bottom = Math.floor(i / 10) * 20 + 5;
+        peopleHTML += '<div class="v-person" style="left:' + left + '%;bottom:' + bottom + '%;"></div>';
+    }
+    peopleDiv.innerHTML = peopleHTML;
+
+    // 更新数字
+    vHouses.textContent = houses;
+    vPop.textContent = population;
+
+    // 添加动画
+    housesDiv.style.animation = 'none';
+    peopleDiv.style.animation = 'none';
+    setTimeout(() => {
+        housesDiv.style.animation = 'popIn 0.5s ease';
+        peopleDiv.style.animation = 'popIn 0.5s ease 0.2s';
+    }, 10);
 }
 
 function resetData() {
@@ -61,6 +104,12 @@ function resetData() {
     document.getElementById('kramer').textContent = '-';
     document.getElementById('density').textContent = '-';
     document.getElementById('combined').textContent = '-';
+
+    // 重置示意图
+    document.getElementById('visualHouses').innerHTML = '';
+    document.getElementById('visualPeople').innerHTML = '';
+    document.getElementById('vHouses').textContent = '0';
+    document.getElementById('vPop').textContent = '0';
 }
 
 function animateResult() {

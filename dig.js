@@ -1,55 +1,34 @@
 // 虚拟发掘体验
 
-const gridSize = 25;
+const gridSize = 25; // 5x5 探方
 let dugCount = 0;
 
-// 地层定义 + 遗物
+// 地层定义：从上到下分层
+// 第0-4行(上)=耕土层(1), 第5-9行=汉代层(2), 第10-14行=商周层(3), 第15-24行(下)=新石器时代层(4)
 const layers = [
-    1,1,1,1,1,
-    1,2,2,2,1,
-    1,2,3,2,1,
-    1,2,3,4,1,
-    1,1,1,1,1
+    1,1,1,1,1,  // 第1行：耕土层（最浅，最上面）
+    1,1,1,1,1,  // 第2行：耕土层
+    2,2,2,2,2,  // 第3行：汉代层
+    2,2,2,2,2,  // 第4行：汉代层
+    3,3,3,3,3,  // 第5行：商周层
+    3,3,3,3,3,  // 第6行：商周层
+    4,4,4,4,4,  // 第7行：新石器时代层（最深，最下面）
+    4,4,4,4,4,  // 第8行：新石器时代层
+    4,4,4,4,4,  // 第9行：新石器时代层
+    4,4,4,4,4   // 第10行：新石器时代层
 ];
 
 const layerNames = ['', '耕土层', '汉代文化层', '商周文化层', '新石器时代层'];
 const layerColors = ['', '#c9b896', '#a08860', '#8b7355', '#6b5344'];
+const layerDeepColors = ['', '#b8a078', '#8f7850', '#7a6550', '#5a4a3a'];
 
-// 每个格子对应的遗物（用emoji简笔画）
-const artifacts = [
-    '', '\uD83D\uDCA5', '\u2694', '\uD83C\uDFA8', '\uD83C\uDF3E'
-];
-const artifactNames = [
-    '', '现代瓷片', '汉代铜钱', '商周陶片', '仰韶彩陶'
-];
-
-// 更丰富的遗物配置（每个格子独立）
+// 每个格子对应的遗物
 const cellArtifacts = [
-    {emoji: '', name: ''},
-    {emoji: '\uD83D\uDCA5', name: '碎瓷片'},
-    {emoji: '\uD83D\uDCA5', name: '瓦片'},
-    {emoji: '', name: ''},
-    {emoji: '\uD83D\uDCA5', name: '玻璃片'},
-    {emoji: '', name: ''},
-    {emoji: '\u2694', name: '五铢钱'},
-    {emoji: '\uD83C\uDFA8', name: '汉代陶片'},
-    {emoji: '\u2694', name: '铁钉'},
-    {emoji: '', name: ''},
-    {emoji: '\uD83D\uDCA5', name: '砖块'},
-    {emoji: '\uD83C\uDFA8', name: '灰陶片'},
-    {emoji: '\uD83C\uDFA8', name: '商代陶片'},
-    {emoji: '\uD83C\uDFA8', name: '绳纹陶'},
-    {emoji: '', name: ''},
-    {emoji: '', name: ''},
-    {emoji: '\u2694', name: '石斧'},
-    {emoji: '\uD83C\uDF3E', name: '彩陶片'},
-    {emoji: '\uD83C\uDFA8', name: '黑陶片'},
-    {emoji: '', name: ''},
-    {emoji: '\uD83D\uDCA5', name: '植物根系'},
-    {emoji: '', name: ''},
-    {emoji: '\uD83C\uDF3E', name: '石铲'},
-    {emoji: '\uD83C\uDF3E', name: '骨针'},
-    {emoji: '', name: ''}
+    {emoji: '\uD83D\uDCA5', name: '碎瓷片'}, {emoji: '\uD83D\uDCA5', name: '瓦片'}, {emoji: '', name: ''}, {emoji: '\uD83D\uDCA5', name: '玻璃片'}, {emoji: '', name: ''},
+    {emoji: '', name: ''}, {emoji: '\uD83D\uDCA5', name: '砖块'}, {emoji: '', name: ''}, {emoji: '\uD83D\uDCA5', name: '植物根系'}, {emoji: '', name: ''},
+    {emoji: '\u2694', name: '五铢钱'}, {emoji: '\uD83C\uDFA8', name: '汉代陶片'}, {emoji: '\u2694', name: '铁钉'}, {emoji: '', name: ''}, {emoji: '\u2694', name: '铜钱'},
+    {emoji: '\uD83C\uDFA8', name: '灰陶片'}, {emoji: '\uD83C\uDFA8', name: '商代陶片'}, {emoji: '\uD83C\uDFA8', name: '绳纹陶'}, {emoji: '\u2694', name: '石斧'}, {emoji: '', name: ''},
+    {emoji: '\uD83C\uDF3E', name: '彩陶片'}, {emoji: '\uD83C\uDF3E', name: '石铲'}, {emoji: '\uD83C\uDF3E', name: '骨针'}, {emoji: '\uD83C\uDF3E', name: '仰韶彩陶'}, {emoji: '\uD83C\uDF3E', name: '陶片'}
 ];
 
 function initDig() {
@@ -64,14 +43,15 @@ function initDig() {
         cell.dataset.index = i;
         cell.dataset.layer = layers[i];
 
-        // 初始显示土层颜色
-        cell.style.background = 'linear-gradient(180deg, ' + layerColors[layers[i]] + ' 0%, ' + 
-            adjustColor(layerColors[layers[i]], -20) + ' 100%)';
+        // 根据层位设置颜色（从上到下颜色逐渐变深）
+        const layer = layers[i];
+        cell.style.background = 'linear-gradient(180deg, ' + layerColors[layer] + ' 0%, ' + layerDeepColors[layer] + ' 100%)';
+        cell.style.borderColor = layerDeepColors[layer];
 
         // 添加土层标识
         const indicator = document.createElement('span');
         indicator.className = 'layer-indicator';
-        indicator.textContent = '?';
+        indicator.textContent = layer;
         cell.appendChild(indicator);
 
         cell.addEventListener('click', function() {
@@ -80,11 +60,6 @@ function initDig() {
 
         grid.appendChild(cell);
     }
-}
-
-function adjustColor(hex, amount) {
-    // 简单的颜色调整
-    return hex;
 }
 
 function digCell(cell, index) {
@@ -106,19 +81,27 @@ function digCell(cell, index) {
         cell.style.borderColor = '#c9b896';
     }
 
-    // 显示发掘信息
-    const result = document.getElementById('digResult');
+    // 更新顶部醒目提示
+    const resultDiv = document.getElementById('digResult');
     if (artifact.emoji) {
-        result.innerHTML = '发掘到 <strong>' + layerNames[layer] + '</strong>，出土 <strong>' + artifact.name + '</strong> ' + artifact.emoji;
+        resultDiv.innerHTML = '<span style="font-size:28px;">' + artifact.emoji + '</span> ' +
+            '发掘到 <strong style="color:#8b6914;">' + layerNames[layer] + '</strong>，出土 <strong style="color:#8b6914;">' + artifact.name + '</strong>';
     } else {
-        result.innerHTML = '发掘到 <strong>' + layerNames[layer] + '</strong>，未发现遗物';
+        resultDiv.innerHTML = '发掘到 <strong style="color:#8b6914;">' + layerNames[layer] + '</strong>，未发现遗物';
     }
+
+    // 给提示添加动画
+    const banner = document.getElementById('digResultBanner');
+    banner.style.animation = 'none';
+    setTimeout(() => {
+        banner.style.animation = 'highlightPulse 0.6s ease';
+    }, 10);
 
     dugCount++;
     updateProgress();
 
     if (dugCount === gridSize) {
-        result.innerHTML = '<strong style="color:#8b6914;">&#x1F389; 恭喜！探方发掘完成！</strong> 共发现4个文化层，出土各类遗物。';
+        document.getElementById('digResult').innerHTML = '<strong style="color:#8b6914;font-size:22px;">&#x1F389; 恭喜！探方发掘完成！</strong><br>共发现4个文化层，出土各类遗物';
     }
 }
 
